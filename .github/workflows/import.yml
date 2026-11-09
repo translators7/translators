@@ -11,24 +11,17 @@ jobs:
       - name: Download zip and extract to repo root
         run: |
           set -e
-          curl -L --fail --retry 3 -o /tmp/site.zip "https://tmpfiles.org/dl/wEA5WodSiZjp/translators-v3.zip"
+          curl -L --fail --retry 3 -o /tmp/site.zip "https://tmpfiles.org/dl/1794252859.a009e307469a26b4/wEA5WodSiZjp/translators-v3.zip"
+          file /tmp/site.zip
           mkdir -p /tmp/unpack
           unzip -q /tmp/site.zip -d /tmp/unpack
-          if [ -d /tmp/unpack/translators ]; then
-            src=/tmp/unpack/translators
-          else
-            src=/tmp/unpack
-          fi
+          if [ -d /tmp/unpack/translators ]; then src=/tmp/unpack/translators; else src=/tmp/unpack; fi
           rsync -a --exclude '.git' --exclude '.github' "$src"/ ./
-          ls -la | head
       - name: Commit and push
         run: |
           git config user.name "translators7"
           git config user.email "translators7@users.noreply.github.com"
           git add -A
-          if git diff --cached --quiet; then
-            echo "No changes"
-            exit 0
-          fi
-          git commit -m "Pretty URLs, header menus, brand, elementor CSS"
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Pretty URLs, header, brand, CSS, footer"
           git push
