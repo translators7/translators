@@ -1,0 +1,34 @@
+name: Import site
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download zip and extract to repo root
+        run: |
+          set -e
+          curl -L --fail --retry 3 -o /tmp/site.zip "https://tmpfiles.org/dl/w9AxWXd3vpLY/translators-v2-pretty.zip"
+          mkdir -p /tmp/unpack
+          unzip -q /tmp/site.zip -d /tmp/unpack
+          if [ -d /tmp/unpack/translators ]; then
+            src=/tmp/unpack/translators
+          else
+            src=/tmp/unpack
+          fi
+          rsync -a --exclude '.git' --exclude '.github' "$src"/ ./
+          ls -la | head
+      - name: Commit and push
+        run: |
+          git config user.name "translators7"
+          git config user.email "translators7@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Pretty URLs, header menus, brand, elementor CSS"
+          git push
