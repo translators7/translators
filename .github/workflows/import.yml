@@ -11,7 +11,7 @@ jobs:
       - name: Download zip and extract to repo root
         run: |
           set -e
-          curl -L --fail --retry 3 -o /tmp/site.zip "https://tmpfiles.org/dl/w9AxWXd3vpLY/translators-v2-pretty.zip"
+          curl -L --fail --retry 3 -o /tmp/site.zip "https://tmpfiles.org/dl/wEA5WodSiZjp/translators-v3.zip"
           mkdir -p /tmp/unpack
           unzip -q /tmp/site.zip -d /tmp/unpack
           if [ -d /tmp/unpack/translators ]; then
