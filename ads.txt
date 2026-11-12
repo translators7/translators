@@ -1,6 +1,6 @@
+google.com, pub-9590678411030378, DIRECT, f08c47fec0942fa0
 OWNERDOMAIN=translators.mkm.fan
 MANAGERDOMAIN=ehumps.com
-
 ehumps.com, 0209, DIRECT
 # Publisher Dashboard
 google.com, pub-6193096344573365, DIRECT, f08c47fec0942fa0
